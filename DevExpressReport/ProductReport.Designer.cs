@@ -59,6 +59,7 @@ namespace DevExpressReport
             this.xrTable1 = new DevExpress.XtraReports.UI.XRTable();
             this.xrTableRow1 = new DevExpress.XtraReports.UI.XRTableRow();
             this.xrTableCell1 = new DevExpress.XtraReports.UI.XRTableCell();
+            this.xrLabel1 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrTableCell2 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrTableCell3 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrTableCell4 = new DevExpress.XtraReports.UI.XRTableCell();
@@ -70,7 +71,8 @@ namespace DevExpressReport
             this.xrTableCell9 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrTableCell10 = new DevExpress.XtraReports.UI.XRTableCell();
             this.GroupHeader1 = new DevExpress.XtraReports.UI.GroupHeaderBand();
-            this.xrLabel1 = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrPageInfo2 = new DevExpress.XtraReports.UI.XRPageInfo();
+            this.xrPageInfo1 = new DevExpress.XtraReports.UI.XRPageInfo();
             this.xrTable2 = new DevExpress.XtraReports.UI.XRTable();
             this.xrTableRow3 = new DevExpress.XtraReports.UI.XRTableRow();
             this.xrTableCell11 = new DevExpress.XtraReports.UI.XRTableCell();
@@ -88,10 +90,9 @@ namespace DevExpressReport
             this.groupFooterBand1 = new DevExpress.XtraReports.UI.GroupFooterBand();
             this.xrLabel4 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel3 = new DevExpress.XtraReports.UI.XRLabel();
-            this.xrPageInfo1 = new DevExpress.XtraReports.UI.XRPageInfo();
-            this.xrPageInfo2 = new DevExpress.XtraReports.UI.XRPageInfo();
             this.ReportHeader = new DevExpress.XtraReports.UI.ReportHeaderBand();
             this.xrTableOfContents1 = new DevExpress.XtraReports.UI.XRTableOfContents();
+            this.xrLabel5 = new DevExpress.XtraReports.UI.XRLabel();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
@@ -154,9 +155,12 @@ namespace DevExpressReport
             this.Detail.Borders = DevExpress.XtraPrinting.BorderSide.Bottom;
             this.Detail.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
             this.xrTable1});
+            this.Detail.DrillDownControl = this.xrLabel5;
             this.Detail.HeightF = 90F;
             this.Detail.KeepTogether = true;
             this.Detail.Name = "Detail";
+            this.Detail.SortFields.AddRange(new DevExpress.XtraReports.UI.GroupField[] {
+            new DevExpress.XtraReports.UI.GroupField("UnitPrice", DevExpress.XtraReports.UI.XRColumnSortOrder.None)});
             this.Detail.StylePriority.UseBorders = false;
             // 
             // xrTable1
@@ -187,6 +191,8 @@ namespace DevExpressReport
             this.xrTableCell1.BookmarkParent = this.xrLabel1;
             this.xrTableCell1.Borders = DevExpress.XtraPrinting.BorderSide.None;
             this.xrTableCell1.CanShrink = true;
+            this.xrTableCell1.EditOptions.EditorName = "OnlyLetters";
+            this.xrTableCell1.EditOptions.Enabled = true;
             this.xrTableCell1.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
             new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[ProductName]"),
             new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Bookmark", "[ProductName]")});
@@ -201,6 +207,22 @@ namespace DevExpressReport
             this.xrTableCell1.Text = "xrTableCell1";
             this.xrTableCell1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomLeft;
             this.xrTableCell1.Weight = 1.7025641025641021D;
+            // 
+            // xrLabel1
+            // 
+            this.xrLabel1.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[OrderID]"),
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Bookmark", "iif([isRegularPriceProduct],\n    \'Products with Regular Price (less than $10)\',\n " +
+                    "   \'Expensive Products ($10 or greater)\')")});
+            this.xrLabel1.Font = new DevExpress.Drawing.DXFont("Segoe UI", 18F);
+            this.xrLabel1.LocationFloat = new DevExpress.Utils.PointFloat(0F, 0F);
+            this.xrLabel1.Multiline = true;
+            this.xrLabel1.Name = "xrLabel1";
+            this.xrLabel1.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.xrLabel1.SizeF = new System.Drawing.SizeF(425.5F, 35F);
+            this.xrLabel1.StylePriority.UseFont = false;
+            this.xrLabel1.Text = "xrLabel1";
+            this.xrLabel1.TextFormatString = "Details for Customer Order #{0}";
             // 
             // xrTableCell2
             // 
@@ -273,6 +295,7 @@ namespace DevExpressReport
             // xrTableCell6
             // 
             this.xrTableCell6.CanGrow = false;
+            this.xrTableCell6.EditOptions.Enabled = true;
             this.xrTableCell6.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
             new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[Supplier]")});
             this.xrTableCell6.Multiline = true;
@@ -326,21 +349,31 @@ namespace DevExpressReport
             this.GroupHeader1.Name = "GroupHeader1";
             this.GroupHeader1.RepeatEveryPage = true;
             // 
-            // xrLabel1
+            // xrPageInfo2
             // 
-            this.xrLabel1.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[OrderID]"),
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Bookmark", "iif([isRegularPriceProduct],\n    \'Products with Regular Price (less than $10)\',\n " +
-                    "   \'Expensive Products ($10 or greater)\')")});
-            this.xrLabel1.Font = new DevExpress.Drawing.DXFont("Segoe UI", 18F);
-            this.xrLabel1.LocationFloat = new DevExpress.Utils.PointFloat(0F, 0F);
-            this.xrLabel1.Multiline = true;
-            this.xrLabel1.Name = "xrLabel1";
-            this.xrLabel1.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.xrLabel1.SizeF = new System.Drawing.SizeF(425.5F, 35F);
-            this.xrLabel1.StylePriority.UseFont = false;
-            this.xrLabel1.Text = "xrLabel1";
-            this.xrLabel1.TextFormatString = "Details for Customer Order #{0}";
+            this.xrPageInfo2.Font = new DevExpress.Drawing.DXFont("Segoe UI", 10F);
+            this.xrPageInfo2.LocationFloat = new DevExpress.Utils.PointFloat(0F, 35.00001F);
+            this.xrPageInfo2.Name = "xrPageInfo2";
+            this.xrPageInfo2.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.xrPageInfo2.PageInfo = DevExpress.XtraPrinting.PageInfo.DateTime;
+            this.xrPageInfo2.SizeF = new System.Drawing.SizeF(425.5F, 39.99999F);
+            this.xrPageInfo2.StylePriority.UseFont = false;
+            this.xrPageInfo2.StylePriority.UseTextAlignment = false;
+            this.xrPageInfo2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
+            this.xrPageInfo2.TextFormatString = "{0:d MMMM yyyy HH:mm}";
+            // 
+            // xrPageInfo1
+            // 
+            this.xrPageInfo1.Font = new DevExpress.Drawing.DXFont("Segoe UI", 10F);
+            this.xrPageInfo1.LocationFloat = new DevExpress.Utils.PointFloat(606F, 0F);
+            this.xrPageInfo1.Name = "xrPageInfo1";
+            this.xrPageInfo1.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 15, 0, 0, 100F);
+            this.xrPageInfo1.SizeF = new System.Drawing.SizeF(100F, 35F);
+            this.xrPageInfo1.StylePriority.UseFont = false;
+            this.xrPageInfo1.StylePriority.UsePadding = false;
+            this.xrPageInfo1.StylePriority.UseTextAlignment = false;
+            this.xrPageInfo1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
+            this.xrPageInfo1.TextFormatString = "Page {0} of {1}";
             // 
             // xrTable2
             // 
@@ -381,6 +414,8 @@ namespace DevExpressReport
             // xrTableCell12
             // 
             this.xrTableCell12.Font = new DevExpress.Drawing.DXFont("Arial", 9.75F, DevExpress.Drawing.DXFontStyle.Bold);
+            this.xrTableCell12.InteractiveSorting.FieldName = "UnitPrice";
+            this.xrTableCell12.InteractiveSorting.TargetBand = this.Detail;
             this.xrTableCell12.Multiline = true;
             this.xrTableCell12.Name = "xrTableCell12";
             this.xrTableCell12.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 15, 0, 0, 100F);
@@ -482,6 +517,7 @@ namespace DevExpressReport
             // groupHeaderBand1
             // 
             this.groupHeaderBand1.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
+            this.xrLabel5,
             this.xrLabel2});
             this.groupHeaderBand1.GroupFields.AddRange(new DevExpress.XtraReports.UI.GroupField[] {
             new DevExpress.XtraReports.UI.GroupField("isRegularPriceProduct", DevExpress.XtraReports.UI.XRColumnSortOrder.Descending)});
@@ -501,7 +537,7 @@ namespace DevExpressReport
             this.xrLabel2.Multiline = true;
             this.xrLabel2.Name = "xrLabel2";
             this.xrLabel2.Padding = new DevExpress.XtraPrinting.PaddingInfo(12, 2, 0, 0, 100F);
-            this.xrLabel2.SizeF = new System.Drawing.SizeF(706F, 50F);
+            this.xrLabel2.SizeF = new System.Drawing.SizeF(519F, 50F);
             this.xrLabel2.StylePriority.UseBorders = false;
             this.xrLabel2.StylePriority.UseFont = false;
             this.xrLabel2.StylePriority.UsePadding = false;
@@ -556,32 +592,6 @@ namespace DevExpressReport
             this.xrLabel3.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
             this.xrLabel3.TextFormatString = "Product count: {0}";
             // 
-            // xrPageInfo1
-            // 
-            this.xrPageInfo1.Font = new DevExpress.Drawing.DXFont("Segoe UI", 10F);
-            this.xrPageInfo1.LocationFloat = new DevExpress.Utils.PointFloat(606F, 0F);
-            this.xrPageInfo1.Name = "xrPageInfo1";
-            this.xrPageInfo1.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 15, 0, 0, 100F);
-            this.xrPageInfo1.SizeF = new System.Drawing.SizeF(100F, 35F);
-            this.xrPageInfo1.StylePriority.UseFont = false;
-            this.xrPageInfo1.StylePriority.UsePadding = false;
-            this.xrPageInfo1.StylePriority.UseTextAlignment = false;
-            this.xrPageInfo1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
-            this.xrPageInfo1.TextFormatString = "Page {0} of {1}";
-            // 
-            // xrPageInfo2
-            // 
-            this.xrPageInfo2.Font = new DevExpress.Drawing.DXFont("Segoe UI", 10F);
-            this.xrPageInfo2.LocationFloat = new DevExpress.Utils.PointFloat(0F, 35.00001F);
-            this.xrPageInfo2.Name = "xrPageInfo2";
-            this.xrPageInfo2.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 96F);
-            this.xrPageInfo2.PageInfo = DevExpress.XtraPrinting.PageInfo.DateTime;
-            this.xrPageInfo2.SizeF = new System.Drawing.SizeF(425.5F, 39.99999F);
-            this.xrPageInfo2.StylePriority.UseFont = false;
-            this.xrPageInfo2.StylePriority.UseTextAlignment = false;
-            this.xrPageInfo2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
-            this.xrPageInfo2.TextFormatString = "{0:d MMMM yyyy HH:mm}";
-            // 
             // ReportHeader
             // 
             this.ReportHeader.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
@@ -598,6 +608,21 @@ namespace DevExpressReport
             this.xrTableOfContents1.LevelTitle.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
             this.xrTableOfContents1.LocationFloat = new DevExpress.Utils.PointFloat(0F, 0F);
             this.xrTableOfContents1.Name = "xrTableOfContents1";
+            // 
+            // xrLabel5
+            // 
+            this.xrLabel5.Borders = DevExpress.XtraPrinting.BorderSide.Bottom;
+            this.xrLabel5.Font = new DevExpress.Drawing.DXFont("Segoe UI", 12F, DevExpress.Drawing.DXFontStyle.Underline);
+            this.xrLabel5.LocationFloat = new DevExpress.Utils.PointFloat(519F, 0F);
+            this.xrLabel5.Multiline = true;
+            this.xrLabel5.Name = "xrLabel5";
+            this.xrLabel5.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 96F);
+            this.xrLabel5.SizeF = new System.Drawing.SizeF(187F, 50F);
+            this.xrLabel5.StylePriority.UseBorders = false;
+            this.xrLabel5.StylePriority.UseFont = false;
+            this.xrLabel5.StylePriority.UseTextAlignment = false;
+            this.xrLabel5.Text = "Show/Hide Products";
+            this.xrLabel5.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
             // 
             // ProductReport
             // 
@@ -677,5 +702,6 @@ namespace DevExpressReport
         private DevExpress.XtraReports.UI.XRPageInfo xrPageInfo2;
         private DevExpress.XtraReports.UI.ReportHeaderBand ReportHeader;
         private DevExpress.XtraReports.UI.XRTableOfContents xrTableOfContents1;
+        private DevExpress.XtraReports.UI.XRLabel xrLabel5;
     }
 }
