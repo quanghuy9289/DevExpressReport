@@ -10,6 +10,7 @@ namespace DevExpressReport
     {
         static void Main(string[] args)
         {
+            BindReportToSP.GenerateCustomerOrderDetailReport();
         }
     }
 }
